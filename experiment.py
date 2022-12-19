@@ -232,7 +232,7 @@ def write_to_csv_correctness_validity():
         with open(str(i) + "/output_correctness_validity.txt", 'r') as f:
             contents = f.read()
             contents = contents.splitlines()
-            if "Invalid" in contents:
+            if len(contents) == 0 or "Invalid" in contents:
                 inv = inv + 1
                 matrix[i + 1][2] = 0
                 print("Invalid" + " " + str(i))
