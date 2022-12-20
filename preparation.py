@@ -122,7 +122,7 @@ def create_csv():
         writer.writerow(header)
 
         for i in range(TEST_COUNT):
-            init_data = [i, -1.0, -1.0, -1.0,-1.0, -1.0, -1.0, -1.0, -1.0, -1.0]
+            init_data = [i, "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
            # writer.writerow(str(i) + ", -1, -1, -1, -1, -1, -1, -1, -1, -1")
             writer.writerow(init_data)
 
