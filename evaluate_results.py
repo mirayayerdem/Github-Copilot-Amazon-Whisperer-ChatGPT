@@ -35,7 +35,9 @@ def calculate_different_correctness_cases(path):
     count_partially_correct = 0
 
     for i in range(1, NUMBER_OF_SAMPLES + 1):
-        if not 'N/A' in matrix[i][1]:
+        if 'N/A' in matrix[i][1]:
+            count_incorrect += 1
+        else:
             if float(matrix[i][1]) == 1.0:
                 count_correct += 1
             elif float(matrix[i][1]) == 0.0:
