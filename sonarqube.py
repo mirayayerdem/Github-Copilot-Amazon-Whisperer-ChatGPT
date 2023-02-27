@@ -32,21 +32,29 @@ def create_project(session, project_name, project_key):
 
 
 # create projects
-def create_projects(session):
+def create_projects(session, name):
     for i in range(TEST_COUNT):
-        project_name = "humaneval_" + str(i)
-        project_key = "humaneval_" + str(i)
+        project_name = name + "_" + str(i)
+        project_key = name + "_" + str(i)
         print('SONARQUBE Creating project: ' + project_name)
         create_project(session, project_name, project_key)
 
 
-def run_sonarqube():
+def run_sonarqube(name):
     for i in range(TEST_COUNT):
-        project_key = "humaneval_" + str(i)
+        project_key = name + "_" + str(i)
         py_file_name = "/prompt_" + str(i) + ".py"
-        cmd = "sonar-scanner.bat -D'sonar.projectKey=" + project_key + "' -D'sonar.sources=code_generation/" + str(i) + py_file_name + "'"
+        cmd = "/Users/burakyetistiren/Desktop/sonar-scanner-4.6.2.2472-macosx/bin/sonar-scanner -D'sonar.projectKey=" + project_key + "' -D'sonar.sources=code_generation/" + str(i) + py_file_name + "'"
         cmd += " -D'sonar.host.url=http://localhost:9000' -D'sonar.login=" + config("SONAR_TOKEN") + "'"
-        p = subprocess.Popen(["powershell.exe", cmd], stdout=sys.stdout)
+        # subprocess mac terminal
+        """
+        usr = input("Enter OS (w for windows, m for mac): ")
+        if usr == 'm':
+            p = subprocess.Popen(["/bin/bash", "-c", cmd], stdout=sys.stdout)
+        if usr == 'w':
+            p = subprocess.Popen(["powershell.exe", cmd], stdout=sys.stdout)
+        """
+        p = subprocess.Popen(["/bin/bash", "-c", cmd], stdout=sys.stdout)
         p.communicate()
 
 
@@ -71,12 +79,12 @@ def get_measures(session, project_key):
 
 
 # save all measures
-def save_measures_to_json(session):
+def save_measures_to_json(session, name):
     os.chdir('experiment-results')
 
     for i in range(TEST_COUNT):
         os.chdir(str(i))
-        project_key = "humaneval_" + str(i)
+        project_key = name + "_" + str(i)
         measures_response = get_measures(session, project_key)
         measures = json.loads(measures_response.text)
         with open('sonar_' + str(i) + '.json', 'w') as outfile:
@@ -138,9 +146,10 @@ def extract_all_metrics_to_csv():
 
 
 def run_sonarqube_eval():
+    project_name = input("Project name: ")
     session = authenticate(url)
-    delete_projects(session)
-    create_projects(session)
-    run_sonarqube()
-    save_measures_to_json(session)
+    #delete_projects(session)
+    create_projects(session, project_name)
+    run_sonarqube(project_name)
+    save_measures_to_json(session, project_name)
     extract_all_metrics_to_csv()
