@@ -61,8 +61,9 @@ def run_sonarqube(name):
 # Delete a sonarqube project
 def delete_projects(session):
     projects = ""
+    project_name = input("Enter project name to delete: ")
     for i in range(TEST_COUNT):
-        projects += "humaneval_" + str(i) + ","
+        projects += project_name + "_" + str(i) + ","
         
     obj = {'projects': projects}
     print('SONARQUBE Deleting projects...')
