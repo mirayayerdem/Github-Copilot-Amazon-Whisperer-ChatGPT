@@ -1,0 +1,3 @@
+
+
+def median(l: list):

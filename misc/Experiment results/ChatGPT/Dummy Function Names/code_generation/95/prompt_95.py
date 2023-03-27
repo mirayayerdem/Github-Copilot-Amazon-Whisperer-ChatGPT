@@ -1,0 +1,20 @@
+
+def foo(dict):
+    """
+    Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    foo({"a":"apple", "b":"banana"}) should return True.
+    foo({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    foo({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    foo({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    foo({"STATE":"NC", "ZIP":"12345" }) should return True.
+    """
+    if not dict:
+        return False
+    keys = dict.keys()
+    if all(map(lambda x: x.islower(), keys)) or all(map(lambda x: x.isupper(), keys)):
+        return True
+    return False
+
