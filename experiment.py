@@ -1,5 +1,4 @@
 import os
-#import openai_efficiency
 from shared_funcs import get_json_object
 #from sonarqube import run_sonarqube_eval
 
@@ -126,89 +125,6 @@ def get_all_file_contents(path):
 
     return contents
 
-
-def get_time_and_space_complexity(file_contents):
-    time_complexity = []
-    space_complexity = []
-    for i in range(NUMBER_OF_SAMPLES):
-        sample1 = []
-        sample2 = []
-
-        response1 = openai_efficiency.return_response(file_contents[i][0])
-        response2 = openai_efficiency.return_response(file_contents[i][1])
-
-        # Find first "O(" in response1
-        time_complexity_start_1 = response1.find("O(")
-        # Find first ")" after "O("
-        time_complexity_end_1 = response1.find(
-            ")", time_complexity_start_1) + 1
-        # Find first "O(" in response2
-        time_complexity_start_2 = response2.find("O(")
-        # Find first ")" after "O("
-        time_complexity_end_2 = response2.find(
-            ")", time_complexity_start_2) + 1
-
-        # Find next "O(" in response1
-        space_complexity_start_1 = response1.find("O(", time_complexity_end_1)
-        # Find next ")" after "O("
-        space_complexity_end_1 = response1.find(
-            ")", space_complexity_start_1) + 1
-        # Find next "O(" in response2
-        space_complexity_start_2 = response2.find("O(", time_complexity_end_2)
-        # Find next ")" after "O("
-        space_complexity_end_2 = response2.find(
-            ")", space_complexity_start_2) + 1
-
-        time_complexity_line1 = response1[time_complexity_start_1:time_complexity_end_1]
-        time_complexity_line2 = response2[time_complexity_start_2:time_complexity_end_2]
-
-        space_complexity_line1 = response1[space_complexity_start_1:space_complexity_end_1]
-        space_complexity_line2 = response2[space_complexity_start_2:space_complexity_end_2]
-
-        sample1.append(time_complexity_line1)
-        sample1.append(time_complexity_line2)
-
-        sample2.append(space_complexity_line1)
-        sample2.append(space_complexity_line2)
-
-        time_complexity.append(sample1)
-        space_complexity.append(sample2)
-
-    return time_complexity, space_complexity
-
-
-# Write the time and space complexity to a csv file for each folder
-def write_to_csv_complexity():
-    from csv import reader, writer
-
-    print("Start time and space complexity")
-    file_contents = get_all_file_contents('code_generation/')
-    time_complexity = get_time_and_space_complexity(file_contents)[0]
-    space_complexity = get_time_and_space_complexity(file_contents)[1]
-
-    print(time_complexity)
-    print(space_complexity)
-
-    matrix = []
-    with open("results/results.csv", "r") as f:
-        csv_reader = reader(f)
-        for row in csv_reader:
-            matrix.append(row)
-
-    for i in range(1, NUMBER_OF_SAMPLES + 1):
-        matrix[i][3] = time_complexity[i - 1][0]
-        matrix[i][4] = time_complexity[i - 1][1]
-
-        matrix[i][5] = space_complexity[i - 1][0]
-        matrix[i][6] = space_complexity[i - 1][1]
-
-    with open("results/results.csv", "w", newline='') as f:
-        writer = writer(f)
-        writer.writerows(matrix)
-
-    print("End time and space complexity")
-
-
 # write validity and correctness to csv file
 def write_to_csv_correctness_validity():
     from csv import reader, writer
@@ -298,5 +214,4 @@ def count_test_cases():
 
 create_exp_code()
 write_to_csv_correctness_validity()
-# write_to_csv_complexity()
 # run_sonarqube_eval()
