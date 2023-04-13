@@ -11,7 +11,7 @@
 - Run [experiment.py](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer/blob/main/experiment.py)
  --> *python experiment.py*
 ##
-The results for all of our experiments can be viewed [here](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer/blob/main/misc/All%20Experiment%20Results.xlsx).
+The results for all of our experiments can be viewed [here](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer-ChatGPT/blob/main/misc/All_Experiment_Results.xlsx).
 
 ##
 The generated code for each of our experiments can be found [here](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer/tree/main/misc/Experiment%20results)
