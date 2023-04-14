@@ -19,5 +19,5 @@ The generated code for each of our experiments can be found [here](https://githu
 ##
 For the comparison results of code correctness and code validity metrics:
 - Record the code correctness and code validity scores for the experiments to be compared in a file called 'comparison_data.csv'.
-- Run [compare_data.py](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer/blob/main/compare_data.py)
---> *python compare_data.py*
+- Run [compare_results.py](https://github.com/mirayayerdem/Github-Copilot-Amazon-Whisperer/blob/main/compare_results.py)
+--> *python compare_results.py*
