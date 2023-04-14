@@ -6,7 +6,7 @@ NUMBER_OF_SAMPLES = 164
 
 
 def calculate_dropped_validity_and_correctness(path):
-    with open(path + "/comparison_results.csv", "r") as csvfile:
+    with open(path + "/comparison_data.csv", "r") as csvfile:
         csv_reader = reader(csvfile)
         values = [[] for i in range(len(next(csv_reader)))] # initialize empty lists for each column
 
